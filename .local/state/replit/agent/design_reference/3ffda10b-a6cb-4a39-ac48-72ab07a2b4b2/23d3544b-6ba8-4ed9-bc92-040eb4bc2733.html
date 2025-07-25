@@ -1,0 +1,879 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalentHub - Profile Builder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'sky-custom': {
+                            50: '#f0f9ff',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="font-inter bg-gray-50 min-h-screen">
+    <!-- @COMPONENT: Sidebar Navigation -->
+    <div class="fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg border-r border-gray-200">
+        <div class="flex flex-col h-full">
+            <!-- Logo/Header -->
+            <div class="flex items-center justify-center h-16 px-4 border-b border-gray-200">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-r from-sky-custom-500 to-sky-custom-400 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-user text-white text-sm"></i>
+                    </div>
+                    <span class="text-xl font-semibold text-gray-800">TalentHub</span>
+                </div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav class="flex-1 px-4 py-6 space-y-2">
+                <a href="#dashboard" class="nav-item active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#personal" class="nav-item" data-section="personal">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Personal Info</span>
+                </a>
+                <a href="#education" class="nav-item" data-section="education">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Education</span>
+                </a>
+                <a href="#skills" class="nav-item" data-section="skills">
+                    <i class="fas fa-cogs"></i>
+                    <span>Skills</span>
+                </a>
+                <a href="#experience" class="nav-item" data-section="experience">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Experience</span>
+                </a>
+                <a href="#projects" class="nav-item" data-section="projects">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Projects</span>
+                </a>
+                <a href="#certifications" class="nav-item" data-section="certifications">
+                    <i class="fas fa-certificate"></i>
+                    <span>Certifications</span>
+                </a>
+                <a href="#links" class="nav-item" data-section="links">
+                    <i class="fas fa-link"></i>
+                    <span>External Links</span>
+                </a>
+                <a href="#resume" class="nav-item" data-section="resume">
+                    <i class="fas fa-file-upload"></i>
+                    <span>Resume Upload</span>
+                </a>
+                <a href="#preview" class="nav-item" data-section="preview">
+                    <i class="fas fa-eye"></i>
+                    <span>Preview & Share</span>
+                </a>
+            </nav>
+
+            <!-- Profile Completeness -->
+            <div class="px-4 py-4 border-t border-gray-200">
+                <div class="bg-sky-custom-50 rounded-lg p-3">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm font-medium text-gray-700">Profile Complete</span>
+                        <span class="text-sm font-semibold text-sky-custom-600" data-bind="profileCompletion">75%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="bg-gradient-to-r from-sky-custom-500 to-sky-custom-400 h-2 rounded-full" style="width: 75%" data-bind="profileCompletionBar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: Sidebar Navigation -->
+
+    <!-- Main Content Area -->
+    <div class="ml-64 min-h-screen">
+        <!-- @COMPONENT: Header -->
+        <header class="bg-white shadow-sm border-b border-gray-200 px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-semibold text-gray-800" data-bind="pageTitle">Dashboard</h1>
+                    <p class="text-sm text-gray-600 mt-1" data-bind="pageDescription">Build and manage your professional profile</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="btn-secondary">
+                        <i class="fas fa-download mr-2"></i>
+                        Export PDF
+                    </button>
+                    <button class="btn-primary">
+                        <i class="fas fa-share-alt mr-2"></i>
+                        Share Profile
+                    </button>
+                </div>
+            </div>
+        </header>
+        <!-- @END_COMPONENT: Header -->
+
+        <!-- @COMPONENT: Dashboard Section -->
+        <main class="p-6" id="content-area">
+            <div id="dashboard-section" class="content-section active">
+                <!-- Profile Overview Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="stats-card">
+                        <div class="flex items-center">
+                            <div class="stats-icon bg-emerald-100 text-emerald-600">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-gray-600">Completed Sections</p>
+                                <p class="text-2xl font-semibold text-gray-900" data-bind="completedSections">6/8</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-card">
+                        <div class="flex items-center">
+                            <div class="stats-icon bg-purple-100 text-purple-600">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-gray-600">Profile Views</p>
+                                <p class="text-2xl font-semibold text-gray-900" data-bind="profileViews">142</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-card">
+                        <div class="flex items-center">
+                            <div class="stats-icon bg-orange-100 text-orange-600">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-gray-600">Profile Score</p>
+                                <p class="text-2xl font-semibold text-gray-900" data-bind="profileScore">85/100</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-card">
+                        <div class="flex items-center">
+                            <div class="stats-icon bg-sky-custom-100 text-sky-custom-600">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-gray-600">Certifications</p>
+                                <p class="text-2xl font-semibold text-gray-900" data-bind="certificationsCount">4</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                    <!-- Profile Sections Status -->
+                    <div class="profile-card">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-semibold text-gray-800">Profile Sections</h3>
+                            <span class="text-sm text-sky-custom-600 font-medium">8 sections</span>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <!-- @MAP: profileSections.map(section => ( -->
+                            <div class="section-status-item">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center mr-3">
+                                            <i class="fas fa-check text-emerald-600 text-xs"></i>
+                                        </div>
+                                        <span class="font-medium text-gray-700" data-mock="true">Personal Information</span>
+                                    </div>
+                                    <span class="text-sm text-emerald-600 font-medium">Complete</span>
+                                </div>
+                            </div>
+
+                            <div class="section-status-item">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center mr-3">
+                                            <i class="fas fa-check text-emerald-600 text-xs"></i>
+                                        </div>
+                                        <span class="font-medium text-gray-700" data-mock="true">Education</span>
+                                    </div>
+                                    <span class="text-sm text-emerald-600 font-medium">Complete</span>
+                                </div>
+                            </div>
+
+                            <div class="section-status-item">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center mr-3">
+                                            <i class="fas fa-exclamation text-yellow-600 text-xs"></i>
+                                        </div>
+                                        <span class="font-medium text-gray-700" data-mock="true">Skills</span>
+                                    </div>
+                                    <span class="text-sm text-yellow-600 font-medium">Incomplete</span>
+                                </div>
+                            </div>
+
+                            <div class="section-status-item">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                                            <i class="fas fa-minus text-gray-400 text-xs"></i>
+                                        </div>
+                                        <span class="font-medium text-gray-700" data-mock="true">Projects</span>
+                                    </div>
+                                    <span class="text-sm text-gray-500 font-medium">Not Started</span>
+                                </div>
+                            </div>
+                            <!-- @END_MAP )) -->
+                        </div>
+
+                        <button class="btn-primary w-full mt-6" data-event="click:viewAllSections">
+                            View All Sections
+                        </button>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="profile-card">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-semibold text-gray-800">Recent Activity</h3>
+                            <span class="text-sm text-gray-500">Last 7 days</span>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <!-- @MAP: recentActivity.map(activity => ( -->
+                            <div class="activity-item">
+                                <div class="flex items-start">
+                                    <div class="w-8 h-8 rounded-full bg-sky-custom-100 flex items-center justify-center mr-3 mt-1">
+                                        <i class="fas fa-edit text-sky-custom-600 text-xs"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-700" data-mock="true">Updated work experience</p>
+                                        <p class="text-xs text-gray-500 mt-1" data-mock="true">2 hours ago</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="activity-item">
+                                <div class="flex items-start">
+                                    <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center mr-3 mt-1">
+                                        <i class="fas fa-plus text-emerald-600 text-xs"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-700" data-mock="true">Added new certification</p>
+                                        <p class="text-xs text-gray-500 mt-1" data-mock="true">Yesterday</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="activity-item">
+                                <div class="flex items-start">
+                                    <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center mr-3 mt-1">
+                                        <i class="fas fa-share text-purple-600 text-xs"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-700" data-mock="true">Profile shared publicly</p>
+                                        <p class="text-xs text-gray-500 mt-1" data-mock="true">3 days ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- @END_MAP )) -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Recommendations -->
+                <div class="profile-card mb-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center mr-3">
+                                <i class="fas fa-robot text-white text-sm"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-800">AI Recommendations</h3>
+                        </div>
+                        <button class="text-sm text-sky-custom-600 hover:text-sky-custom-700 font-medium">View All</button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- @MAP: aiRecommendations.map(recommendation => ( -->
+                        <div class="recommendation-card">
+                            <div class="flex items-start">
+                                <div class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center mr-3">
+                                    <i class="fas fa-lightbulb text-yellow-600 text-sm"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-medium text-gray-800 mb-1" data-mock="true">Add Technical Skills</h4>
+                                    <p class="text-sm text-gray-600 mb-3" data-mock="true">Adding relevant technical skills can increase your profile visibility by 40%</p>
+                                    <button class="text-xs text-sky-custom-600 hover:text-sky-custom-700 font-medium">Take Action</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recommendation-card">
+                            <div class="flex items-start">
+                                <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center mr-3">
+                                    <i class="fas fa-certificate text-emerald-600 text-sm"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-medium text-gray-800 mb-1" data-mock="true">Verify Certificates</h4>
+                                    <p class="text-sm text-gray-600 mb-3" data-mock="true">Enable blockchain verification for your certificates to boost credibility</p>
+                                    <button class="text-xs text-sky-custom-600 hover:text-sky-custom-700 font-medium">Learn More</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- @END_MAP )) -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Personal Information Section -->
+            <div id="personal-section" class="content-section">
+                <div class="profile-card">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800">Personal Information</h3>
+                        <button class="btn-primary" data-event="click:editPersonalInfo">
+                            <i class="fas fa-edit mr-2"></i>Edit
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Profile Photo -->
+                        <div class="text-center">
+                            <div class="relative inline-block">
+                                <!-- Professional headshot of a young person in business attire -->
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&h=300" alt="Profile Photo" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg" data-mock-image="true" />
+                                <button class="absolute bottom-0 right-0 w-8 h-8 bg-sky-custom-500 rounded-full flex items-center justify-center text-white hover:bg-sky-custom-600 transition-colors">
+                                    <i class="fas fa-camera text-xs"></i>
+                                </button>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 mt-4" data-bind="user.name" data-mock="true">Alex Johnson</h4>
+                            <p class="text-sm text-gray-600" data-bind="user.title" data-mock="true">Full Stack Developer</p>
+                        </div>
+
+                        <!-- Personal Details -->
+                        <div class="lg:col-span-2">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="form-field">
+                                    <label class="form-label">Full Name</label>
+                                    <div class="form-display" data-bind="user.fullName" data-mock="true">Alex Johnson</div>
+                                </div>
+                                
+                                <div class="form-field">
+                                    <label class="form-label">Email</label>
+                                    <div class="form-display" data-bind="user.email" data-mock="true">alex.johnson@email.com</div>
+                                </div>
+                                
+                                <div class="form-field">
+                                    <label class="form-label">Phone</label>
+                                    <div class="form-display" data-bind="user.phone" data-mock="true">+1 (555) 123-4567</div>
+                                </div>
+                                
+                                <div class="form-field">
+                                    <label class="form-label">Location</label>
+                                    <div class="form-display" data-bind="user.location" data-mock="true">San Francisco, CA</div>
+                                </div>
+                                
+                                <div class="form-field md:col-span-2">
+                                    <label class="form-label">Professional Summary</label>
+                                    <div class="form-display" data-bind="user.summary" data-mock="true">Experienced Full Stack Developer with 5+ years in building scalable web applications. Passionate about creating efficient solutions and mentoring junior developers.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resume Upload Section -->
+            <div id="resume-section" class="content-section">
+                <div class="profile-card">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800">Resume Upload & Parsing</h3>
+                        <div class="flex space-x-2">
+                            <button class="btn-secondary">
+                                <i class="fas fa-tips mr-2"></i>Get Tips
+                            </button>
+                            <button class="btn-primary">
+                                <i class="fas fa-sync mr-2"></i>Re-parse
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Upload Area -->
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center mb-8 hover:border-sky-custom-400 transition-colors cursor-pointer" data-implementation="Implement drag-and-drop file upload">
+                        <div class="max-w-md mx-auto">
+                            <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+                            <h4 class="text-lg font-medium text-gray-800 mb-2">Upload Your Resume</h4>
+                            <p class="text-sm text-gray-600 mb-4">Drag and drop your resume here, or click to browse</p>
+                            <p class="text-xs text-gray-500 mb-4">Supports PDF, DOC, DOCX (Max 5MB)</p>
+                            <button class="btn-primary">
+                                <i class="fas fa-upload mr-2"></i>Choose File
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Current Resume -->
+                    <div class="bg-gray-50 rounded-lg p-6 mb-8">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mr-4">
+                                    <i class="fas fa-file-pdf text-red-600 text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800" data-mock="true">Alex_Johnson_Resume.pdf</h4>
+                                    <p class="text-sm text-gray-600" data-mock="true">Uploaded 2 days ago • 2.3 MB</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <button class="btn-secondary-sm">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn-secondary-sm">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="btn-secondary-sm text-red-600">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Parsing Results -->
+                    <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-emerald-600 mr-2"></i>
+                                <h4 class="font-medium text-emerald-800">Resume Parsed Successfully</h4>
+                            </div>
+                            <span class="text-sm text-emerald-600 font-medium" data-mock="true">95% Accuracy</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                            <div class="text-center">
+                                <div class="text-2xl font-semibold text-emerald-600" data-mock="true">12</div>
+                                <div class="text-sm text-emerald-700">Skills Detected</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-semibold text-emerald-600" data-mock="true">3</div>
+                                <div class="text-sm text-emerald-700">Experiences Found</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-semibold text-emerald-600" data-mock="true">2</div>
+                                <div class="text-sm text-emerald-700">Education Records</div>
+                            </div>
+                        </div>
+
+                        <button class="btn-primary w-full">
+                            <i class="fas fa-magic mr-2"></i>Auto-fill Profile Sections
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Preview Section -->
+            <div id="preview-section" class="content-section">
+                <div class="profile-card">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800">Profile Preview & Sharing</h3>
+                        <div class="flex space-x-2">
+                            <button class="btn-secondary">
+                                <i class="fas fa-edit mr-2"></i>Edit Mode
+                            </button>
+                            <button class="btn-primary">
+                                <i class="fas fa-download mr-2"></i>Export PDF
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Sharing Options -->
+                    <div class="bg-sky-custom-50 border border-sky-custom-200 rounded-lg p-6 mb-8">
+                        <h4 class="font-medium text-sky-custom-800 mb-4">Share Your Profile</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="form-label">Public Profile Link</label>
+                                <div class="flex">
+                                    <input type="text" class="form-input rounded-r-none" value="https://talenthub.com/profile/alex-johnson" readonly data-mock="true" />
+                                    <button class="btn-primary rounded-l-none">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="form-label">QR Code</label>
+                                <div class="w-20 h-20 bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-qrcode text-gray-400 text-2xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Preview -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <div class="bg-gradient-to-r from-sky-custom-500 to-sky-custom-400 p-8 text-white">
+                            <div class="flex items-center space-x-6">
+                                <!-- Professional headshot in a circular frame -->
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=150&h=150" alt="Profile Photo" class="w-24 h-24 rounded-full border-4 border-white/20" data-mock-image="true" />
+                                <div>
+                                    <h2 class="text-3xl font-bold mb-2" data-bind="user.name" data-mock="true">Alex Johnson</h2>
+                                    <p class="text-xl text-sky-100 mb-2" data-bind="user.title" data-mock="true">Full Stack Developer</p>
+                                    <p class="text-sky-100" data-bind="user.location" data-mock="true">San Francisco, CA</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-8">
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                <!-- Left Column -->
+                                <div class="space-y-6">
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                                            <i class="fas fa-user mr-2 text-sky-custom-500"></i>About
+                                        </h3>
+                                        <p class="text-gray-600 text-sm leading-relaxed" data-bind="user.summary" data-mock="true">
+                                            Experienced Full Stack Developer with 5+ years in building scalable web applications. Passionate about creating efficient solutions and mentoring junior developers.
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                                            <i class="fas fa-cogs mr-2 text-sky-custom-500"></i>Skills
+                                        </h3>
+                                        <div class="flex flex-wrap gap-2">
+                                            <!-- @MAP: skills.map(skill => ( -->
+                                            <span class="skill-tag" data-mock="true">JavaScript</span>
+                                            <span class="skill-tag" data-mock="true">React</span>
+                                            <span class="skill-tag" data-mock="true">Node.js</span>
+                                            <span class="skill-tag" data-mock="true">Python</span>
+                                            <!-- @END_MAP )) -->
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                                            <i class="fas fa-link mr-2 text-sky-custom-500"></i>Links
+                                        </h3>
+                                        <div class="space-y-2">
+                                            <a href="#" class="external-link" data-mock="true">
+                                                <i class="fab fa-linkedin text-blue-600"></i>
+                                                LinkedIn Profile
+                                            </a>
+                                            <a href="#" class="external-link" data-mock="true">
+                                                <i class="fab fa-github text-gray-800"></i>
+                                                GitHub Repository
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Right Column -->
+                                <div class="lg:col-span-2 space-y-6">
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                                            <i class="fas fa-briefcase mr-2 text-sky-custom-500"></i>Experience
+                                        </h3>
+                                        <div class="space-y-4">
+                                            <!-- @MAP: experiences.map(experience => ( -->
+                                            <div class="experience-item">
+                                                <div class="flex justify-between items-start mb-2">
+                                                    <div>
+                                                        <h4 class="font-semibold text-gray-800" data-mock="true">Senior Full Stack Developer</h4>
+                                                        <p class="text-sky-custom-600 font-medium" data-mock="true">TechCorp Inc.</p>
+                                                    </div>
+                                                    <span class="text-sm text-gray-500" data-mock="true">2021 - Present</span>
+                                                </div>
+                                                <p class="text-sm text-gray-600" data-mock="true">
+                                                    Led development of scalable web applications serving 100k+ users. Implemented microservices architecture and mentored junior developers.
+                                                </p>
+                                            </div>
+                                            <!-- @END_MAP )) -->
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                                            <i class="fas fa-graduation-cap mr-2 text-sky-custom-500"></i>Education
+                                        </h3>
+                                        <div class="space-y-4">
+                                            <!-- @MAP: education.map(edu => ( -->
+                                            <div class="education-item">
+                                                <div class="flex justify-between items-start mb-2">
+                                                    <div>
+                                                        <h4 class="font-semibold text-gray-800" data-mock="true">Bachelor of Computer Science</h4>
+                                                        <p class="text-sky-custom-600 font-medium" data-mock="true">Stanford University</p>
+                                                    </div>
+                                                    <span class="text-sm text-gray-500" data-mock="true">2015 - 2019</span>
+                                                </div>
+                                            </div>
+                                            <!-- @END_MAP )) -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- @COMPONENT: Edit Modal -->
+    <div id="editModal" class="modal hidden">
+        <div class="modal-overlay" data-event="click:closeModal"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-bind="modalTitle">Edit Personal Information</h3>
+                <button class="modal-close" data-event="click:closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <form class="space-y-6" data-implementation="Form validation and submission handling">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="form-field">
+                            <label class="form-label" for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" class="form-input" value="Alex Johnson" data-mock="true" required />
+                        </div>
+                        
+                        <div class="form-field">
+                            <label class="form-label" for="email">Email *</label>
+                            <input type="email" id="email" class="form-input" value="alex.johnson@email.com" data-mock="true" required />
+                        </div>
+                        
+                        <div class="form-field">
+                            <label class="form-label" for="phone">Phone</label>
+                            <input type="tel" id="phone" class="form-input" value="+1 (555) 123-4567" data-mock="true" />
+                        </div>
+                        
+                        <div class="form-field">
+                            <label class="form-label" for="location">Location</label>
+                            <input type="text" id="location" class="form-input" value="San Francisco, CA" data-mock="true" />
+                        </div>
+                        
+                        <div class="form-field md:col-span-2">
+                            <label class="form-label" for="title">Professional Title</label>
+                            <input type="text" id="title" class="form-input" value="Full Stack Developer" data-mock="true" />
+                        </div>
+                        
+                        <div class="form-field md:col-span-2">
+                            <label class="form-label" for="summary">Professional Summary</label>
+                            <textarea id="summary" class="form-input" rows="4" data-mock="true">Experienced Full Stack Developer with 5+ years in building scalable web applications. Passionate about creating efficient solutions and mentoring junior developers.</textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn-secondary" data-event="click:closeModal">Cancel</button>
+                <button class="btn-primary" data-event="click:saveChanges">Save Changes</button>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: Edit Modal -->
+
+    <style>
+        /* Navigation Styles */
+        .nav-item {
+            @apply flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-sky-custom-50 hover:text-sky-custom-700 transition-colors font-medium;
+        }
+        
+        .nav-item.active {
+            @apply bg-sky-custom-100 text-sky-custom-700 font-semibold;
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            @apply bg-sky-custom-500 hover:bg-sky-custom-600 text-white px-4 py-2 rounded-lg font-medium transition-colors inline-flex items-center;
+        }
+
+        .btn-secondary {
+            @apply bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition-colors inline-flex items-center;
+        }
+
+        .btn-secondary-sm {
+            @apply bg-gray-100 hover:bg-gray-200 text-gray-700 p-2 rounded-lg transition-colors inline-flex items-center;
+        }
+
+        /* Card Styles */
+        .profile-card {
+            @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6;
+        }
+
+        .stats-card {
+            @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6;
+        }
+
+        .stats-icon {
+            @apply w-12 h-12 rounded-lg flex items-center justify-center;
+        }
+
+        .recommendation-card {
+            @apply bg-gray-50 rounded-lg p-4 border border-gray-100;
+        }
+
+        /* Form Styles */
+        .form-field {
+            @apply space-y-2;
+        }
+
+        .form-label {
+            @apply block text-sm font-medium text-gray-700;
+        }
+
+        .form-input {
+            @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-custom-500 focus:border-transparent;
+        }
+
+        .form-display {
+            @apply text-gray-800 font-medium;
+        }
+
+        /* Section Styles */
+        .content-section {
+            @apply hidden;
+        }
+
+        .content-section.active {
+            @apply block;
+        }
+
+        .section-status-item, .activity-item {
+            @apply p-3 rounded-lg hover:bg-gray-50 transition-colors;
+        }
+
+        /* Modal Styles */
+        .modal {
+            @apply fixed inset-0 z-50 flex items-center justify-center;
+        }
+
+        .modal-overlay {
+            @apply absolute inset-0 bg-black bg-opacity-50;
+        }
+
+        .modal-content {
+            @apply relative bg-white rounded-xl shadow-xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto;
+        }
+
+        .modal-header {
+            @apply flex items-center justify-between p-6 border-b border-gray-200;
+        }
+
+        .modal-title {
+            @apply text-lg font-semibold text-gray-800;
+        }
+
+        .modal-close {
+            @apply text-gray-400 hover:text-gray-600 p-2 rounded-lg hover:bg-gray-100 transition-colors;
+        }
+
+        .modal-body {
+            @apply p-6;
+        }
+
+        .modal-footer {
+            @apply flex items-center justify-end space-x-3 p-6 border-t border-gray-200;
+        }
+
+        /* Preview Styles */
+        .skill-tag {
+            @apply px-3 py-1 bg-sky-custom-100 text-sky-custom-700 rounded-full text-sm font-medium;
+        }
+
+        .external-link {
+            @apply flex items-center space-x-2 text-sm text-gray-700 hover:text-sky-custom-600 transition-colors;
+        }
+
+        .experience-item, .education-item {
+            @apply pb-4 border-b border-gray-100 last:border-b-0;
+        }
+    </style>
+
+    <script>
+        (function() {
+            // Navigation handling
+            const navItems = document.querySelectorAll('.nav-item');
+            const contentSections = document.querySelectorAll('.content-section');
+            const pageTitle = document.querySelector('[data-bind="pageTitle"]');
+            const pageDescription = document.querySelector('[data-bind="pageDescription"]');
+
+            const sectionTitles = {
+                dashboard: { title: 'Dashboard', description: 'Build and manage your professional profile' },
+                personal: { title: 'Personal Information', description: 'Manage your basic profile details' },
+                education: { title: 'Education', description: 'Add your educational background' },
+                skills: { title: 'Skills', description: 'Showcase your technical and soft skills' },
+                experience: { title: 'Work Experience', description: 'Detail your professional journey' },
+                projects: { title: 'Projects', description: 'Highlight your key projects and achievements' },
+                certifications: { title: 'Certifications', description: 'Display your professional certifications' },
+                links: { title: 'External Links', description: 'Connect your social and professional profiles' },
+                resume: { title: 'Resume Upload', description: 'Upload and parse your resume automatically' },
+                preview: { title: 'Profile Preview', description: 'Preview and share your completed profile' }
+            };
+
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all nav items
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    
+                    // Hide all content sections
+                    contentSections.forEach(section => section.classList.remove('active'));
+                    
+                    // Show the selected section
+                    const sectionName = this.getAttribute('data-section');
+                    const targetSection = document.getElementById(sectionName + '-section');
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                    }
+                    
+                    // Update page title and description
+                    if (sectionTitles[sectionName]) {
+                        pageTitle.textContent = sectionTitles[sectionName].title;
+                        pageDescription.textContent = sectionTitles[sectionName].description;
+                    }
+                });
+            });
+
+            // Modal handling
+            const modal = document.getElementById('editModal');
+            const editButtons = document.querySelectorAll('[data-event*="editPersonalInfo"]');
+            const closeButtons = document.querySelectorAll('[data-event*="closeModal"]');
+
+            editButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    modal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                });
+            });
+
+            // TODO: Implement business logic for form submissions, file uploads, and data persistence
+            // TODO: Add API integration for profile data management
+            // TODO: Implement real-time profile completion tracking
+            // TODO: Add blockchain certificate verification
+            // TODO: Implement AI-powered resume parsing
+            // TODO: Add PDF export functionality
+            // TODO: Implement public profile sharing with generated links
+        })();
+    </script>
+</body>
+</html>

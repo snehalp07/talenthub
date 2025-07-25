@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(20, 14.3%, 4.1%);
+  --muted: hsl(60, 4.8%, 95.9%);
+  --muted-foreground: hsl(25, 5.3%, 44.7%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(20, 14.3%, 4.1%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(20, 14.3%, 4.1%);
+  --border: hsl(20, 5.9%, 90%);
+  --input: hsl(20, 5.9%, 90%);
+  --primary: hsl(199, 89%, 48%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(60, 4.8%, 95.9%);
+  --secondary-foreground: hsl(24, 9.8%, 10%);
+  --accent: hsl(60, 4.8%, 95.9%);
+  --accent-foreground: hsl(24, 9.8%, 10%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(60, 9.1%, 97.8%);
+  --ring: hsl(20, 14.3%, 4.1%);
+  --radius: 0.5rem;
+  
+  /* Custom colors for sky theme */
+  --sky-50: hsl(204, 100%, 97%);
+  --sky-100: hsl(204, 93%, 93%);
+  --sky-200: hsl(201, 94%, 86%);
+  --sky-300: hsl(199, 95%, 74%);
+  --sky-400: hsl(198, 93%, 60%);
+  --sky-500: hsl(199, 89%, 48%);
+  --sky-600: hsl(200, 98%, 39%);
+  --sky-700: hsl(201, 96%, 32%);
+  --sky-800: hsl(201, 90%, 27%);
+  --sky-900: hsl(202, 80%, 24%);
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(199, 89%, 48%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-gray-50 text-foreground;
+  }
+}
+
+@layer components {
+  /* Navigation Styles */
+  .nav-item {
+    @apply flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-sky-50 hover:text-sky-700 transition-colors font-medium;
+  }
+  
+  .nav-item.active {
+    @apply bg-sky-100 text-sky-700 font-semibold;
+  }
+
+  /* Button Styles */
+  .btn-primary {
+    @apply bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg font-medium transition-colors inline-flex items-center;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition-colors inline-flex items-center;
+  }
+
+  .btn-secondary-sm {
+    @apply bg-gray-100 hover:bg-gray-200 text-gray-700 p-2 rounded-lg transition-colors inline-flex items-center;
+  }
+
+  /* Card Styles */
+  .profile-card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6;
+  }
+
+  .stats-card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6;
+  }
+
+  .stats-icon {
+    @apply w-12 h-12 rounded-lg flex items-center justify-center;
+  }
+
+  .recommendation-card {
+    @apply bg-gray-50 rounded-lg p-4 border border-gray-100;
+  }
+
+  /* Form Styles */
+  .form-field {
+    @apply space-y-2;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-gray-700;
+  }
+
+  .form-display {
+    @apply text-gray-800 font-medium;
+  }
+
+  /* Section Styles */
+  .section-status-item, .activity-item {
+    @apply p-3 rounded-lg hover:bg-gray-50 transition-colors;
+  }
+
+  /* Preview Styles */
+  .skill-tag {
+    @apply px-3 py-1 bg-sky-100 text-sky-700 rounded-full text-sm font-medium;
+  }
+
+  .external-link {
+    @apply flex items-center space-x-2 text-sm text-gray-700 hover:text-sky-600 transition-colors;
+  }
+
+  .experience-item, .education-item {
+    @apply pb-4 border-b border-gray-100 last:border-b-0;
+  }
+
+  /* File upload styles */
+  .file-upload-area {
+    @apply border-2 border-dashed border-gray-300 rounded-lg p-12 text-center hover:border-sky-400 transition-colors cursor-pointer;
+  }
+
+  .file-upload-area.drag-over {
+    @apply border-sky-500 bg-sky-50;
+  }
+}
